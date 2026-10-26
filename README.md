@@ -1,369 +1,402 @@
-# Image-Handling-and-Pixel-Transformations-Using-OpenCV 
+# Experiment 1: Image Handling and Pixel Transformations Using OpenCV
 
-## AIM:
-Write a Python program using OpenCV that performs the following tasks:
+## Name: Harisankar.S 
+## Register Number: 212224240051 
+## Experiment: Image Handling and Pixel Transformations Using OpenCV
 
-1) Read and Display an Image.  
-2) Adjust the brightness of an image.  
-3) Modify the image contrast.  
-4) Generate a third image using bitwise operations.
 
-## Software Required:
-- Anaconda - Python 3.7
-- Jupyter Notebook (for interactive development and execution)
 
-## Algorithm:
-### Step 1:
-Load an image from your local directory and display it.
+## AIM
 
-### Step 2:
-Create a matrix of ones (with data type float64) to adjust brightness.
+To perform image handling and pixel transformations using Python and OpenCV, including reading and displaying images, drawing shapes, adding text, color space conversion, pixel manipulation, image resizing, cropping, flipping, and saving the modified image.
 
-### Step 3:
-Create brighter and darker images by adding and subtracting the matrix from the original image.  
-Display the original, brighter, and darker images.
+## SOFTWARE REQUIRED
 
-### Step 4:
-Modify the image contrast by creating two higher contrast images using scaling factors of 1.1 and 1.2 (without overflow fix).  
-Display the original, lower contrast, and higher contrast images.
+- Python
+- OpenCV
+- Matplotlib
+- Jupyter Notebook
+- Anaconda (optional)
 
-### Step 5:
-Split the image (boy.jpg) into B, G, R components and display the channels.
+## INSTALLATION
 
-## Program Developed By:
-- **Name:** Harisankar S
-- **Register Number:** 212224240051
+Install the required libraries using the following command:
 
-### Ex. No. 01
+```bash
+pip install opencv-contrib-python-headless matplotlib
+```
 
-#### 1. Read the image ('hari.jpg') using OpenCV imread() as a grayscale image.
+## ALGORITHM
+
+### Step 1: Read and Display an Image
+
+1. Import OpenCV and Matplotlib libraries.
+2. Read an image from the local directory using `cv2.imread()`.
+3. Convert the image from BGR to RGB.
+4. Display the original image using Matplotlib.
+
+### Step 2: Draw Shapes and Add Text
+
+1. Draw a line from the top-left to the bottom-right of the image.
+2. Draw a circle at the center of the image.
+3. Draw a rectangle around the image.
+4. Add the text "OpenCV Drawing" at the top-left corner.
+
+### Step 3: Color Space Conversion
+
+1. Convert the RGB image to HSV and display it.
+2. Convert the RGB image to grayscale and display it.
+3. Convert the RGB image to YCrCb and display it.
+4. Convert the HSV image back to RGB and display it.
+
+### Step 4: Pixel Manipulation
+
+1. Access and print the pixel value at coordinates `(100, 100)`.
+2. Change the pixel at coordinates `(200, 200)` to white.
+3. Modify a 300 × 300 region of the image to white.
+4. Display the modified image.
+
+### Step 5: Image Resizing
+
+1. Read the original image.
+2. Resize the image to half its original width and height.
+3. Display the resized image.
+
+### Step 6: Image Cropping
+
+1. Read the original image.
+2. Extract a 300 × 300 region of interest starting at `(50, 50)`.
+3. Display the cropped image.
+
+### Step 7: Image Flipping
+
+1. Flip the original image horizontally.
+2. Flip the original image vertically.
+3. Display both flipped images.
+
+### Step 8: Save the Final Modified Image
+
+1. Save the modified image in the local directory using `cv2.imwrite()`.
+2. Verify that the image has been saved successfully.
+
+---
+
+## PROGRAM
+
+### Step 1: Read and Display an Image
+
 ```python
 import cv2
-import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread("hari.jpg", cv2.IMREAD_GRAYSCALE)
+# Read the image using OpenCV
+img = cv2.imread('hari.jpeg', cv2.IMREAD_COLOR)
+
+# Convert BGR (OpenCV's default) to RGB (Matplotlib's expected color order)
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+# Display the image using Matplotlib
+plt.imshow(img_rgb, cmap='viridis')  # You can change 'viridis' to another cmap or use None for RGB images
+plt.title("Original Image")
+plt.axis('off')  # Removes axis ticks and labels
+plt.show()
 ```
 
-#### 2. Print the image width, height & Channel.
-```python
-height, width = img.shape
+### Step 2: Draw Shapes and Add Text
 
-print("Width :", width)
-print("Height:", height)
-print("Channel: 1")
+#### 2.1 Draw a Line
+
+```python
+# Load the image
+image = cv2.imread('hari.jpeg') 
+
+# Convert BGR (OpenCV's default) to RGB (Matplotlib's expected color order)
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img_rgb.shape
+
+# Draw a line from top-left to bottom-right
+line_img = cv2.line(img_rgb, (0, 0), (768, 600), (255, 0, 0), 2) # cv2.line(image, start_point, end_point, color, thickness)
+
+# Display the image
+plt.imshow(line_img, cmap='viridis')  
+plt.title("Image with Line")
+plt.axis('off')  
+plt.show()
 ```
 
-#### 3. Display the image using matplotlib imshow().
+#### 2.2 Draw a Circle
+
 ```python
-plt.imshow(img, cmap="gray")
+# Load the image
+image = cv2.imread('varshan.jpeg') 
+
+# Convert BGR (OpenCV's default) to RGB (Matplotlib's expected color order)
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+img_rgb.shape
+
+circle_img = cv2.circle(img_rgb,(400,300),150,(255,0,0),10) # cv2.circle(image, center, radius, color, thickness)
+
+# Display the image
+plt.imshow(circle_img, cmap='viridis')  
+plt.title("Image with Circle")
+plt.axis('off')  
+plt.show()
+```
+
+#### 2.3 Draw a Rectangle
+
+```python
+# Load the image
+image = cv2.imread('Qno. 1.jpg') 
+
+# Convert BGR (OpenCV's default) to RGB (Matplotlib's expected color order)
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+img.shape
+
+# Draw a rectangle around the Whole image
+rectangle_img = cv2.rectangle(img_rgb, (0, 0), (768, 600), (0, 0, 255), 10)  # cv2.rectangle(image, start_point, end_point, color, thickness)
+
+# Display the image
+plt.imshow(rectangle_img, cmap='viridis')  
+plt.title("Image with Rectangle")
+plt.axis('off')  
+plt.show()
+```
+
+#### 2.4 Add Text to the Image
+
+```python
+# Load the image
+image = cv2.imread('Qno. 1.jpg') 
+
+# Convert BGR (OpenCV's default) to RGB (Matplotlib's expected color order)
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+# Add text to the image
+text_img = cv2.putText(img_rgb, "OpenCV Drawing", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 10)  ## cv2.putText(image, text, position, font, font_scale, color, thickness)
+
+
+# Display the image
+plt.imshow(text_img, cmap='viridis')  
+plt.title("Image with Text")
+plt.axis('off')  
+plt.show()
+```
+
+### Step 3: Color Space Conversion
+
+```python
+# Load the image
+image = cv2.imread('hari.jpeg') 
+
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Original RGB Image
+plt.imshow(image_rgb)
+plt.title("Original RGB Image")
+plt.axis("off")
+
+# Convert RGB to HSV
+image_hsv = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2HSV)
+
+# HSV Image
+plt.imshow(image_hsv)
+plt.title("HSV Image")
+plt.axis("off")
+
+# Convert RGB to GRAY
+image_gray = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2GRAY)
+
+# Grayscale Image
+plt.imshow(image_gray, cmap='gray')
 plt.title("Grayscale Image")
 plt.axis("off")
-plt.show()
-```
 
-#### 4. Save the image as a PNG file using OpenCV imwrite().
-```python
-cv2.imwrite("hari.png", img)
-print("Image saved successfully.")
-```
+# Convert RGB to YCrCb
+image_ycrcb = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2YCrCb)
 
-#### 5. Read the saved image above as a color image using cv2.cvtColor().
-```python
-img_gray = cv2.imread("hari.png", cv2.IMREAD_GRAYSCALE)
-img_color = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2RGB)
-```
-
-#### 6. Display the Colour image using matplotlib imshow() & Print the image width, height & channel.
-```python
-plt.imshow(img_color)
-plt.title("Colour Image")
+# YCrCb Image
+plt.imshow(image_ycrcb)
+plt.title("YCrCb Image")
 plt.axis("off")
-plt.show()
 
-height, width, channel = img_color.shape
+# Convert HSV back to RGB
+image_hsv_to_rgb = cv2.cvtColor(image_hsv, cv2.COLOR_HSV2RGB)
 
-print("Width :", width)
-print("Height:", height)
-print("Channel:", channel)
+plt.imshow(image_hsv_to_rgb)
+plt.title("HSV to RGB Image")
+plt.axis("off")
 ```
 
-#### 7. Crop the image to extract any specific object from the image.
-```python
-cropped = img_color[150:450, 200:500]
+### Step 4: Pixel Manipulation
 
-plt.imshow(cropped)
-plt.title("Cropped Image")
+```python
+# Modify a block of pixels (300x300) to white, starting from (200, 200)
+image[200:500, 200:500] = [255, 255, 255]  # Rows: 200-499, Columns: 200-499
+
+# Convert BGR to RGB for displaying with Matplotlib
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Display the modified image
+plt.imshow(image_rgb)
+plt.title("Image with 300x300 White Block")
 plt.axis("off")
 plt.show()
 ```
 
-#### 8. Resize the image up by a factor of 2x.
-```python
-resized = cv2.resize(
-    img_color,
-    None,
-    fx=2,
-    fy=2,
-    interpolation=cv2.INTER_LINEAR
-)
+### Step 5: Image Resizing
 
-plt.imshow(resized)
-plt.title("Resized Image (2x)")
+```python
+image = cv2.imread('hari.jpeg') 
+image.shape
+
+# Resize the image to half its size
+resized_image = cv2.resize(image, (768 // 2, 600 // 2))  # (new_width, new_height)
+
+# Convert BGR to RGB for displaying with Matplotlib
+resized_image_rgb = cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB)
+
+resized_image_rgb.shape
+
+# Display the resized image
+plt.imshow(resized_image_rgb)
+plt.title("Resized Image (Half Size)")
 plt.axis("off")
 plt.show()
 ```
 
-#### 9. Flip the cropped/resized image horizontally.
-```python
-flipped = cv2.flip(cropped, 1)
+### Step 6: Image Cropping
 
-plt.imshow(flipped)
-plt.title("Horizontally Flipped Image")
+```python
+# Load the image
+image = cv2.imread('hari.jpeg')
+
+image.shape
+
+# Crop a 300x300 region starting from (50, 50)
+roi = image[50:350, 50:350]  # Rows: 50-349, Columns: 50-349
+
+# Convert BGR to RGB for displaying with Matplotlib
+roi_rgb = cv2.cvtColor(roi, cv2.COLOR_BGR2RGB)
+
+# Display the cropped region (ROI)
+plt.imshow(roi_rgb)
+plt.title("Cropped Region of Interest (ROI)")
 plt.axis("off")
 plt.show()
 ```
 
-#### 10. Read in the image ('city.jpg').
+### Step 7: Image Flipping
+
 ```python
-img = cv2.imread("hari.jpg")
-img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-```
+# Load the image
+image = cv2.imread('hari.jpeg')
 
-#### 11. Add the following text to the dark area at the bottom of the image (centered on the image).
-```python
-text = "Smart City View"
-font_face = cv2.FONT_HERSHEY_PLAIN
+# Flip the image horizontally (left-right)
+flipped_horizontally = cv2.flip(image, 1)
 
-text_position = (180, img_rgb.shape[0] - 20)
+# Convert BGR to RGB for displaying with Matplotlib
+flipped_horizontally_rgb = cv2.cvtColor(flipped_horizontally, cv2.COLOR_BGR2RGB)
 
-cv2.putText(
-    img_rgb,
-    text,
-    text_position,
-    font_face,
-    2,
-    (255, 255, 255),
-    2,
-    cv2.LINE_AA
-)
-```
-
-#### 12. Draw a magenta rectangle that encompasses any prominent object in the image.
-```python
-rect_color = (255, 0, 255)
-
-cv2.rectangle(
-    img_rgb,
-    (250, 180),
-    (500, 450),
-    rect_color,
-    3
-)
-```
-
-#### 13. Display the final annotated image.
-```python
-plt.imshow(img_rgb)
-plt.title("Annotated City Image")
-plt.axis("off")
-plt.show()
-```
-
-#### 14. Read the image ('city.jpg').
-```python
-img = cv2.imread("hari.jpg")
-img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-```
-
-#### 15. Adjust the brightness of the image.
-```python
-# Create a matrix of ones (with data type float64)
-
-matrix = np.ones(img.shape, dtype="uint8") * 50
-```
-
-#### 16. Create brighter and darker images.
-```python
-img_brighter = cv2.add(img, matrix)
-img_darker = cv2.subtract(img, matrix)
-```
-
-#### 17. Display the images (Original Image, Darker Image, Brighter Image).
-```python
-plt.figure(figsize=(15,5))
-
-plt.subplot(1,3,1)
-plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-plt.title("Original Image")
+# Horizontal flip
+plt.imshow(flipped_horizontally_rgb)
+plt.title("Flipped Horizontally")
 plt.axis("off")
 
-plt.subplot(1,3,2)
-plt.imshow(cv2.cvtColor(img_darker, cv2.COLOR_BGR2RGB))
-plt.title("Darker Image")
-plt.axis("off")
+# Flip the image vertically (up-down)
+flipped_vertically = cv2.flip(image, 0)
 
-plt.subplot(1,3,3)
-plt.imshow(cv2.cvtColor(img_brighter, cv2.COLOR_BGR2RGB))
-plt.title("Brighter Image")
-plt.axis("off")
+# Convert BGR to RGB for displaying with Matplotlib
+flipped_vertically_rgb = cv2.cvtColor(flipped_vertically, cv2.COLOR_BGR2RGB)
 
-plt.show()
+# Vertical flip
+plt.imshow(flipped_vertically_rgb)
+plt.title("Flipped Vertically")
+plt.axis("off")
 ```
 
-#### 18. Modify the image contrast.
-```python
-# Create two higher contrast images using the 'scale' option
-# with factors of 1.1 and 1.2 (without overflow fix)
+---
 
-img_higher1 = cv2.convertScaleAbs(img, alpha=1.1, beta=0)
-img_higher2 = cv2.convertScaleAbs(img, alpha=1.2, beta=0)
-```
+## OUTPUT
 
-#### 19. Display the images (Original, Lower Contrast, Higher Contrast).
-```python
-plt.figure(figsize=(15,5))
+# The following outputs are obtained:
 
-plt.subplot(1,3,1)
-plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-plt.title("Original")
-plt.axis("off")
+# 1. Original image displayed using OpenCV and Matplotlib.
 
-plt.subplot(1,3,2)
-plt.imshow(cv2.cvtColor(img_higher1, cv2.COLOR_BGR2RGB))
-plt.title("Contrast 1.1")
-plt.axis("off")
-
-plt.subplot(1,3,3)
-plt.imshow(cv2.cvtColor(img_higher2, cv2.COLOR_BGR2RGB))
-plt.title("Contrast 1.2")
-plt.axis("off")
-
-plt.show()
-```
-
-#### 20. Split the image into the B, G, R components & Display the channels.
-```python
-B, G, R = cv2.split(img)
-
-plt.figure(figsize=(12,4))
-
-plt.subplot(1,3,1)
-plt.imshow(B, cmap="gray")
-plt.title("Blue")
-
-plt.subplot(1,3,2)
-plt.imshow(G, cmap="gray")
-plt.title("Green")
-
-plt.subplot(1,3,3)
-plt.imshow(R, cmap="gray")
-plt.title("Red")
-
-plt.show()
-```
-
-#### 21. Merge the R, G, B displays along with the original image.
-```python
-merged_rgb = cv2.merge((R, G, B))
-
-plt.figure(figsize=(10,5))
-
-plt.subplot(1,2,1)
-plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-plt.title("Original")
-
-plt.subplot(1,2,2)
-plt.imshow(merged_rgb)
-plt.title("Merged RGB")
-
-plt.axis("off")
-plt.show()
-```
-
-#### 22. Split the image into the H, S, V components & Display the channels.
-```python
-hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-
-H, S, V = cv2.split(hsv)
-
-plt.figure(figsize=(12,4))
-
-plt.subplot(1,3,1)
-plt.imshow(H, cmap="gray")
-plt.title("Hue")
-
-plt.subplot(1,3,2)
-plt.imshow(S, cmap="gray")
-plt.title("Saturation")
-
-plt.subplot(1,3,3)
-plt.imshow(V, cmap="gray")
-plt.title("Value")
-
-plt.show()
-```
-
-#### 23. Merge the H, S, V displays along with the original image.
-```python
-merged_hsv = cv2.merge((H, S, V))
-merged_bgr = cv2.cvtColor(merged_hsv, cv2.COLOR_HSV2BGR)
-
-plt.figure(figsize=(10,5))
-
-plt.subplot(1,2,1)
-plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-plt.title("Original")
-
-plt.subplot(1,2,2)
-plt.imshow(cv2.cvtColor(merged_bgr, cv2.COLOR_BGR2RGB))
-plt.title("Merged HSV")
-
-plt.axis("off")
-plt.show()
-```
-
-## Output:
-
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/e788465f-61ef-4646-9d46-4d34e28a7d99" /> </b>   
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/e788465f-61ef-4646-9d46-4d34e28a7d99" /> 
 
 
 
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/76335535-f9b2-4166-9561-485e19d8ad76" /></b>
-          
 
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/50b58e22-9b27-4abf-9bc3-f7535b5b5e71" />  </b>          
+# 2. Image with a line drawn from the top-left to the bottom-right.
 
-
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/df5dedaa-e775-4553-94ab-2dd60960a371" />   </b>         
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/76335535-f9b2-4166-9561-485e19d8ad76" />
 
 
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/2ed6fce7-be91-48a3-97ce-0593d7b90ed0" />   </b>         
+# 3. Image with a circle at the center.
+
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/50b58e22-9b27-4abf-9bc3-f7535b5b5e71" />  
 
 
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/e0e28db7-008b-4fe6-89ec-168a2eee20d5" />  </b>            
+# 4. Image with a rectangle around its boundary.
+
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/df5dedaa-e775-4553-94ab-2dd60960a371" /> 
 
 
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/53c9afb3-978c-421d-88ff-bcec5ce9091b" />     </b>       
+# 5. Image with the text "OpenCV Drawing".
+
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/6a70972c-9273-4292-b17a-6a6d6b911446" />
 
 
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/c0f76577-daea-45a6-b3db-06ae99089894" />  </b>              
+# 6. HSV, grayscale, and YCrCb color space conversions.
 
 
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/eabb8ddf-4970-4943-a666-2af1af2ac2f7" />  </b>              
+ <img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/c79f6582-1670-4ac6-a242-86f12baf4161" /> 
 
 
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/c79f6582-1670-4ac6-a242-86f12baf4161" />   </b>           
+ 
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/c0f76577-daea-45a6-b3db-06ae99089894" />  
 
 
-<img width="493" height="410" alt="download" src="https://github.com/user-attachments/assets/0f150d70-ca3b-4229-a563-3c77e7cf81f6" />    </b>          
 
 
-<img width="389" height="410" alt="download" src="https://github.com/user-attachments/assets/786219d9-d2e5-452f-a2df-8ef6942e5e7f" />    </b>            
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/eabb8ddf-4970-4943-a666-2af1af2ac2f7" /> 
 
 
-<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/dc09fc35-cbdd-4945-8f92-4f66ffede7f8" />    </b>                
+
+# 7. Image converted from HSV back to RGB.
+
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/53c9afb3-978c-421d-88ff-bcec5ce9091b" />  
 
 
-## Result:
-Thus, the image was read and displayed successfully. Brightness and contrast adjustments were performed, the BGR and HSV channels were split and merged successfully, and the required image processing operations were implemented using OpenCV.
+# 8. Pixel value displayed and a white region added to the image.
+
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/c0f76577-daea-45a6-b3db-06ae99089894" />  
+
+
+# 9. Image resized to half its original dimensions.
+
+ 
+<img width="493" height="410" alt="download" src="https://github.com/user-attachments/assets/0f150d70-ca3b-4229-a563-3c77e7cf81f6" />
+
+# 10. Cropped region of interest displayed.
+
+
+<img width="389" height="410" alt="download" src="https://github.com/user-attachments/assets/786219d9-d2e5-452f-a2df-8ef6942e5e7f" />  
+
+
+# 11. Horizontally flipped image displayed.
+
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/dc09fc35-cbdd-4945-8f92-4f66ffede7f8" />
+
+# 12. Vertically flipped image displayed.
+
+<img width="333" height="410" alt="download" src="https://github.com/user-attachments/assets/e0e28db7-008b-4fe6-89ec-168a2eee20d5" />    
+
+
+
+## RESULT
+
+Thus, image handling and pixel transformations were performed using Python, OpenCV, and Matplotlib. The experiment demonstrated image reading, shape drawing, text insertion, color space conversion, pixel manipulation, image resizing, cropping, flipping, and saving.
